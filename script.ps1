@@ -25,12 +25,11 @@ winget install Valve.Steam
 winget install EpicGames.EpicGamesLauncher
 winget install osk.tetr
 winget install PolyMC.PolyMC
+winget install goatcorp.XIVLauncher
 winget install Telegram.TelegramDesktop
 winget install Microsoft.VisualStudioCode
 winget install Obsidian.Obsidian
 winget install JetBrains.Toolbox
 winget install Parsec.Parsec
-winget install Microsoft.WindowsTerminal
 winget install Discord.Discord
-winget install spotify
-
+winget install Spotify.Spotify
