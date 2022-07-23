@@ -25,7 +25,6 @@ winget install Valve.Steam
 winget install EpicGames.EpicGamesLauncher
 winget install osk.tetr
 winget install PolyMC.PolyMC
-winget install Google.Chrome
 winget install Telegram.TelegramDesktop
 winget install Microsoft.VisualStudioCode
 winget install Obsidian.Obsidian
