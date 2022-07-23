@@ -15,15 +15,21 @@ git config --global credential.helper manager-core
 
 
 #winget
+
+#games & media
 winget install Valve.Steam
 winget install EpicGames.EpicGamesLauncher
 winget install osk.tetr
 winget install PolyMC.PolyMC
 winget install goatcorp.XIVLauncher
+winget install Spotify.Spotify
+
+#messaging
 winget install Telegram.TelegramDesktop
+winget install Discord.Discord
+
+#productivity
 winget install Microsoft.VisualStudioCode
 winget install Obsidian.Obsidian
 winget install JetBrains.Toolbox
 winget install Parsec.Parsec
-winget install Discord.Discord
-winget install Spotify.Spotify
