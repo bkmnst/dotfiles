@@ -1,9 +1,3 @@
-#installing windows store
-#wsreset -i
-
-#fixing clipboard and snip&sketch
-#Add-AppxPackage -Path ($PWD.Path + "/Microsoft.VCLibs.140.00_14.0.29231.0_x64__8wekyb3d8bbwe.appx")
-
 #scoop
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 Invoke-RestMethod get.scoop.sh | Invoke-Expression
