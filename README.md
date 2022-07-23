@@ -1,2 +1,6 @@
 # ps_init
-My simple script for making windows install process easier d:
+PowerShell script that automatically installs all the necessary software using [Scoop](Scoop) and [winget](winget) package managers.
+
+###### Requirements:
+**OS:** Windows 10+
+PowerShell 7+
