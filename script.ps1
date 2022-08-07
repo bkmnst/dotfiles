@@ -6,7 +6,7 @@ scoop bucket add java
 scoop bucket add extras
 scoop install aria2
 scoop config aria2-warning-enabled false
-scoop install python openjdk18 go
+scoop install python openjdk18 go kotlin
 
 #post-installation scoop
 Invoke-Expression("C:\Users\" + $env:UserName + "\scoop\apps\7zip\current\install-context.reg")
