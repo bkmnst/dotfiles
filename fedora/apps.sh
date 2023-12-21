@@ -13,15 +13,20 @@ sudo dnf remove firefox totem libreoffice -y
 
 #flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+flatpak remote-modify fedora --disable
+flatpak remote-modify fedora-testing --disable
+
 #messaging
 flatpak install flathub org.telegram.desktop -y
 flatpak install flathub dev.vencord.Vesktop -y
-#gayming
+
+#games
 flatpak install flathub com.valvesoftware.Steam -y
 flatpak install flathub com.usebottles.bottles -y
 flatpak install flathub sh.ppy.osu -y
 flatpak install flathub org.prismlauncher.PrismLauncher -y
 flatpak install flathub com.heroicgameslauncher.hgl -y
+
 #libadwaita
 flatpak install flathub com.mattjakeman.ExtensionManager -y
 flatpak install flathub com.github.tchx84.Flatseal -y
@@ -38,6 +43,7 @@ flatpak install flathub info.febvre.Komikku -y
 flatpak install flathub io.gitlab.news_flash.NewsFlash -y
 flatpak install flathub io.github.seadve.Mousai -y
 flatpak install flathub org.nickvision.tagger -y
+
 #media
 flatpak install flathub org.gimp.GIMP -y
 flatpak install flathub com.obsproject.Studio -y
@@ -47,4 +53,5 @@ flatpak install flathub md.obsidian.Obsidian -y
 flatpak install flathub org.darktable.Darktable -y
 flatpak install flathub com.orama_interactive.Pixelorama -y
 
+#gtk3 theme for flatpak
 flatpak install flathub org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark -y
