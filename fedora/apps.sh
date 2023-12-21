@@ -9,7 +9,8 @@ sudo dnf install lame\* --exclude=lame-devel -y
 sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
 sudo dnf group upgrade --with-optional Multimedia -y
 sudo dnf groupupdate sound-and-video -y
-sudo dnf remove firefox totem libreoffice -y
+sudo dnf group remove libreoffice
+sudo dnf remove firefox totem libreoffice-core -y
 
 #flatpak
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
