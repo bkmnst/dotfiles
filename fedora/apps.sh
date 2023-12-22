@@ -1,5 +1,6 @@
 #!/bin/sh
 #dnf repos
+sudo dnf update -y
 sudo dnf config-manager --set-enabled google-chrome
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
