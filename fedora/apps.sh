@@ -52,6 +52,7 @@ flatpak install flathub info.febvre.Komikku -y
 flatpak install flathub io.gitlab.news_flash.NewsFlash -y
 flatpak install flathub io.github.seadve.Mousai -y
 flatpak install flathub org.nickvision.tagger -y
+flatpak install flathub page.codeberg.libre_menu_editor.LibreMenuEditor -y
 
 #tools
 flatpak install flathub org.gimp.GIMP -y
