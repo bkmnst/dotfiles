@@ -20,6 +20,7 @@ sudo dnf groupupdate sound-and-video -y
 sudo dnf install transmission go neovim python3-neovim ffmpegthumbnailer gnome-tweaks adw-gtk3-theme code nicotine+ google-chrome-stable -y
 
 #flatpak
+flatpak remote-delete flathub
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 flatpak remote-modify fedora --disable
 flatpak remote-modify fedora-testing --disable
