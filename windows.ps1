@@ -6,7 +6,7 @@ scoop bucket add java
 scoop bucket add extras
 scoop install aria2
 scoop config aria2-warning-enabled false
-scoop install python openjdk17 go kotlin ffmpeg gsudo starship yt-dlp lazygit
+scoop install python openjdk17 go ffmpeg gsudo starship mpv yt-dlp rustup lazygit
 
 #post-installation scoop
 Invoke-Expression("C:\Users\" + $env:UserName + "\scoop\apps\7zip\current\install-context.reg")
@@ -37,7 +37,7 @@ winget install qBittorrent.qBittorrent
 #messaging
 winget install Unigram
 winget install Vencord.Vesktop
-
+winget install ChatterinoTeam.Chatterino
 #tools
 winget install Google.Chrome
 winget install Microsoft.VisualStudioCode
