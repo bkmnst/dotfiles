@@ -19,6 +19,7 @@ go env -w GOPATH=$HOME/.go
 
 #wsl
 wsl --install -d Debian
+Copy-Item -Path ".\.wslconfig" -Destination $HOME
 #winget
 
 #games & media
@@ -48,3 +49,27 @@ winget install Inkscape.Inkscape
 winget install dotPDNLLC.paintdotnet
 winget install OBSProject.OBSStudio
 winget install Microsoft.PowerShell
+
+#exclusions
+$folders_to_exclude = (
+    ".android",
+    ".cache",
+    ".config",
+    ".go",
+    ".gradle",
+    ".javacpp",
+    ".ssh",
+    ".thumbnails",
+    ".vscode",
+    "scoop",
+    "Code"
+)
+
+foreach ($folder in $folders_to_exclude) {
+    $full_path = Join-Path $HOME $folder
+    if (!(Test-Path $full_path)) {
+        New-Item -ItemType Directory -Path $full_path
+    }
+}
+
+Get-ChildItem -Force -Filter ".*" | ForEach-Object { $_.Attributes = "Hidden" } 
