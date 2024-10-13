@@ -5,7 +5,7 @@ sudo dnf config-manager --set-enabled google-chrome
 sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo dnf group remove libreoffice
+sudo dnf group remove libreoffice -y
 sudo dnf remove firefox totem libreoffice-core -y
 sudo dnf groupupdate core -y
 
@@ -43,14 +43,14 @@ flatpak install flathub de.haeckerfelix.Shortwave -y
 flatpak install flathub io.github.celluloid_player.Celluloid -y
 flatpak install flathub com.rafaelmardojai.Blanket -y
 flatpak install flathub com.github.neithern.g4music -y
-flatpak install flathub app.drey.Dialect -y
-flatpak install flathub com.github.tenderowl.frog -y
-flatpak install flathub org.nickvision.tubeconverter -y
+#flatpak install flathub app.drey.Dialect -y
+#flatpak install flathub com.github.tenderowl.frog -y
+#flatpak install flathub org.nickvision.tubeconverter -y
 flatpak install flathub it.mijorus.gearlever -y
 flatpak install flathub com.vysp3r.ProtonPlus -y
 flatpak install flathub info.febvre.Komikku -y
-flatpak install flathub io.gitlab.news_flash.NewsFlash -y
-flatpak install flathub io.github.seadve.Mousai -y
+#flatpak install flathub io.gitlab.news_flash.NewsFlash -y
+#flatpak install flathub io.github.seadve.Mousai -y
 flatpak install flathub org.nickvision.tagger -y
 flatpak install flathub page.codeberg.libre_menu_editor.LibreMenuEditor -y
 
@@ -61,7 +61,6 @@ flatpak install flathub org.blender.Blender -y
 flatpak install flathub org.inkscape.Inkscape -y
 flatpak install flathub md.obsidian.Obsidian -y
 flatpak install flathub org.darktable.Darktable -y
-flatpak install flathub com.orama_interactive.Pixelorama -y
 
 #gtk3 theme for flatpak
 flatpak install flathub org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark -y
