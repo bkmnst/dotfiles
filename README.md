@@ -9,3 +9,4 @@ for fedora, debian and windows
 - [ ] Defender exclusions
 - [ ] search exclusions?
 - [ ] group policies
+- [ ] to prioritize (lol): update fedora scripts with dnf5 syntax
