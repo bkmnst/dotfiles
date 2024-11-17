@@ -11,12 +11,6 @@ scoop install python openjdk17 go ffmpeg gsudo starship mpv yt-dlp rustup lazygi
 #post-installation scoop
 Invoke-Expression("C:\Users\" + $env:UserName + "\scoop\apps\7zip\current\install-context.reg")
 Invoke-Expression("C:\Users\" + $env:UserName + "\scoop\apps\python\current\install-pep-514.reg")
-git config --global credential.helper manager-core
-git config --global init.defaultBranch main
-git config --global color.ui auto
-git config --global user.name "bkmnst"
-git config --global user.email "bakemonsuta@gmail.com"
-go env -w GOPATH=$HOME/.go
 
 #wsl
 wsl --install -d Debian
