@@ -1,23 +1,23 @@
 #!/bin/sh
 #dnf repos
-sudo dnf update -y
-sudo dnf config-manager --set-enabled google-chrome
-sudo dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
+sudo dnf4 update -y
+sudo dnf4 config-manager --set-enabled google-chrome
+sudo dnf4 install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
 sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
 sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo dnf group remove libreoffice -y
-sudo dnf remove firefox totem libreoffice-core -y
-sudo dnf groupupdate core -y
+sudo dnf4 group remove libreoffice -y
+sudo dnf4 remove firefox totem libreoffice-core -y
+sudo dnf4 groupupdate core -y
 
 #codecs (without replacing mesa)
-sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel -y
-sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
-sudo dnf install lame\* --exclude=lame-devel -y
-sudo dnf group upgrade --with-optional Multimedia -y
-sudo dnf groupupdate sound-and-video -y
+sudo dnf4 install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel -y
+sudo dnf4 swap ffmpeg-free ffmpeg --allowerasing -y
+sudo dnf4 install lame\* --exclude=lame-devel -y
+sudo dnf4 group upgrade --with-optional Multimedia -y
+sudo dnf4 groupupdate sound-and-video -y
 
 #dnf apps
-sudo dnf install transmission go neovim python3-neovim ffmpegthumbnailer gnome-tweaks adw-gtk3-theme code nicotine+ google-chrome-stable -y
+sudo dnf4 install transmission go neovim python3-neovim ffmpegthumbnailer gnome-tweaks adw-gtk3-theme code nicotine+ google-chrome-stable -y
 
 #flatpak
 flatpak remote-delete flathub
