@@ -6,7 +6,7 @@ scoop bucket add java
 scoop bucket add extras
 scoop install aria2
 scoop config aria2-warning-enabled false
-scoop install python openjdk17 go ffmpeg gsudo starship mpv yt-dlp rustup lazygit
+scoop install python openjdk21 go ffmpeg mpv yt-dlp
 
 #post-installation scoop
 Invoke-Expression("C:\Users\" + $env:UserName + "\scoop\apps\7zip\current\install-context.reg")
@@ -23,9 +23,6 @@ winget install EpicGames.EpicGamesLauncher
 winget install osk.tetr
 winget install PrismLauncher.PrismLauncher
 winget install goatcorp.XIVLauncher
-winget install Peppy.Osu!
-winget install Spotify.Spotify
-winget install AIMP.AIMP
 winget install mpv.net
 winget install qBittorrent.qBittorrent
 
@@ -39,8 +36,6 @@ winget install Microsoft.VisualStudioCode
 winget install Obsidian.Obsidian
 winget install JetBrains.Toolbox
 winget install WireGuard.WireGuard
-winget install BlenderFoundation.Blender
-winget install Inkscape.Inkscape
 winget install dotPDNLLC.paintdotnet
 winget install OBSProject.OBSStudio
 winget install Microsoft.PowerShell
