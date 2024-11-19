@@ -1,3 +1,4 @@
+export DEBIAN_FRONTEND=noninteractive
 #update to latest & install curl for variables
 sudo apt update && sudo apt upgrade -y
 sudo apt install curl -y
