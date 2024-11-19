@@ -1,4 +1,5 @@
 ARCH=$(dpkg --print-architecture)
+LATEST_GO=$(curl -s https://go.dev/VERSION?m=text | head -n1)
 
 #update to latest
 sudo apt update && sudo apt upgrade -y
@@ -6,7 +7,7 @@ sudo apt update && sudo apt upgrade -y
 #build/dev tools
 sudo apt install -y build-essential clang cmake gettext ninja-build git gdb python3 pip pipx python-is-python3 apt-transport-https ca-certificates gnupg
 #cli tools
-sudo apt install -y aria2 curl wget openssh-client nano unzip zip iperf3 btop ffmpeg rclone rsync fzf tealdeer tmux 7zip nnn
+sudo apt install -y aria2 curl wget openssh-client nano unzip zip iperf3 btop rclone rsync fzf tealdeer tmux 7zip nnn
 
 #custom repos
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
@@ -29,8 +30,8 @@ sudo apt update && sudo apt install -y kubectl kubeadm helm docker-ce docker-ce-
 wget https://github.com/derailed/k9s/releases/download/v0.32.7/k9s_linux_${ARCH}.deb && sudo apt install ./k9s_linux_${ARCH}.deb && rm k9s_linux_${ARCH}.deb
 
 #not in apt
-wget https://go.dev/dl/go1.23.3.linux-${ARCH}.tar.gz
-sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf go1.23.3.linux-${ARCH}.tar.gz
+wget https://go.dev/dl/${LATEST_GO}.linux-${ARCH}.tar.gz
+sudo rm -rf /usr/local/go && sudo tar -C /usr/local -xzf ${LATEST_GO}.linux-${ARCH}.tar.gz
 echo 'export PATH=$PATH:/usr/local/go/bin' >> $HOME/.profile
 
 curl https://sh.rustup.rs -sSf | sh -s -- -y
@@ -39,14 +40,14 @@ curl -s https://fluxcd.io/install.sh | sudo FLUX_VERSION=2.0.0 bash
 
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
-go env -w GOPATH=$HOME/.go
+/usr/local/go env -w GOPATH=$HOME/.go
 echo 'export PATH=$PATH:$HOME/.go/bin' >> $HOME/.profile
-go install sigs.k8s.io/kind@v0.25.0
-go install sigs.k8s.io/kustomize/kustomize/v5@latest
+/usr/local/go install sigs.k8s.io/kind@v0.25.0
+/usr/local/go install sigs.k8s.io/kustomize/kustomize/v5@latest
 
 pipx install yt-dlp awscliv2
 awsv2 --install
-echo 'alias aws='awsv2'' >> $HOME/.profile
+echo "alias aws='awsv2'" >> $HOME/.profile
 
 #post install
 tldr --update
