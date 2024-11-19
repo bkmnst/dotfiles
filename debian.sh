@@ -1,4 +1,4 @@
-ARCH=$(uname -m)
+ARCH=$(dpkg --print-architecture)
 
 #update to latest
 sudo apt update && sudo apt upgrade -y
