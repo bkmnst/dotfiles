@@ -1,4 +1,3 @@
-export DEBIAN_FRONTEND=noninteractive
 #update to latest & install curl for variables
 sudo apt update && sudo apt upgrade -y
 sudo apt install curl -y
@@ -9,8 +8,8 @@ LATEST_GO=$(curl -s https://go.dev/VERSION?m=text | head -n1)
 #build/dev tools
 sudo apt install -y build-essential clang cmake gettext ninja-build git gdb python3 pip pipx python-is-python3 apt-transport-https ca-certificates gnupg
 #cli tools
-sudo apt install -y aria2 wget openssh-client nano unzip zip iperf3 btop rclone rsync fzf tealdeer tmux 7zip nnn
-
+sudo apt install -y aria2 wget openssh-client nano unzip zip btop rclone rsync fzf tealdeer tmux 7zip nnn
+sudo DEBIAN_FRONTEND=noninteractive apt install -y iperf3
 #custom repos
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 sudo chmod 644 /etc/apt/keyrings/kubernetes-apt-keyring.gpg
@@ -47,8 +46,9 @@ echo 'export PATH=$PATH:$HOME/.go/bin' >> $HOME/.profile
 /usr/local/go/bin/go install sigs.k8s.io/kind@v0.25.0
 /usr/local/go/bin/go install sigs.k8s.io/kustomize/kustomize/v5@latest
 
-pipx install yt-dlp awscliv2
-awsv2 --install
+pipx install yt-dlp
+pipx install awscliv2
+awscliv2 --install
 echo "alias aws='awsv2'" >> $HOME/.profile
 
 #post install
