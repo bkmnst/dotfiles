@@ -25,8 +25,7 @@ echo \
 sudo apt update && sudo apt install -y kubectl kubeadm helm docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 #.debs
-wget https://github.com/derailed/k9s/releases/download/v0.32.7/k9s_linux_${ARCH}.deb && apt install ./k9s_linux_${ARCH}.deb && rm k9s_linux_${ARCH}.deb
-sudo apt install -y ./k9s_linux_${ARCH}.deb
+wget https://github.com/derailed/k9s/releases/download/v0.32.7/k9s_linux_${ARCH}.deb && sudo apt install ./k9s_linux_${ARCH}.deb && rm k9s_linux_${ARCH}.deb
 
 #not in apt
 wget https://go.dev/dl/go1.23.3.linux-${ARCH}.tar.gz
