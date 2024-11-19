@@ -41,10 +41,10 @@ curl -s https://fluxcd.io/install.sh | sudo FLUX_VERSION=2.0.0 bash
 
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
-/usr/local/go env -w GOPATH=$HOME/.go
+/usr/local/go/bin/go env -w GOPATH=$HOME/.go
 echo 'export PATH=$PATH:$HOME/.go/bin' >> $HOME/.profile
-/usr/local/go install sigs.k8s.io/kind@v0.25.0
-/usr/local/go install sigs.k8s.io/kustomize/kustomize/v5@latest
+/usr/local/go/bin/go install sigs.k8s.io/kind@v0.25.0
+/usr/local/go/bin/go install sigs.k8s.io/kustomize/kustomize/v5@latest
 
 pipx install yt-dlp awscliv2
 awsv2 --install
