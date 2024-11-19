@@ -1,13 +1,14 @@
+#update to latest & install curl for variables
+sudo apt update && sudo apt upgrade -y
+sudo apt install curl -y
+
 ARCH=$(dpkg --print-architecture)
 LATEST_GO=$(curl -s https://go.dev/VERSION?m=text | head -n1)
-
-#update to latest
-sudo apt update && sudo apt upgrade -y
 
 #build/dev tools
 sudo apt install -y build-essential clang cmake gettext ninja-build git gdb python3 pip pipx python-is-python3 apt-transport-https ca-certificates gnupg
 #cli tools
-sudo apt install -y aria2 curl wget openssh-client nano unzip zip iperf3 btop rclone rsync fzf tealdeer tmux 7zip nnn
+sudo apt install -y aria2 wget openssh-client nano unzip zip iperf3 btop rclone rsync fzf tealdeer tmux 7zip nnn
 
 #custom repos
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
