@@ -1,3 +1,8 @@
+#enable systemd on wsl
+if grep -qi "WSL2" /proc/version; then
+  echo -e "[boot]\nsystemd=true" | sudo tee /etc/wsl.conf > /dev/null
+fi
+
 #update to latest & install curl for variables
 sudo apt update && sudo apt upgrade -y
 sudo apt install curl -y
@@ -48,7 +53,8 @@ echo 'export PATH=$PATH:$HOME/.go/bin' >> $HOME/.profile
 
 pipx install yt-dlp
 pipx install awscliv2
-awscliv2 --install
+pipx ensurepath
+$HOME/.local/bin/awscliv2 --install
 echo "alias aws='awsv2'" >> $HOME/.profile
 
 #post install
