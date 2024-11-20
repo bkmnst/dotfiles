@@ -11,7 +11,8 @@ ARCH=$(dpkg --print-architecture)
 LATEST_GO=$(curl -s https://go.dev/VERSION?m=text | head -n1)
 
 #build/dev tools
-sudo apt install -y build-essential clang cmake gettext ninja-build git gdb python3 pip pipx python-is-python3 apt-transport-https ca-certificates gnupg
+sudo apt install -y build-essential clang cmake gettext ninja-build git gdb python3 pip pipx python-is-python3 apt-transport-https ca-certificates gnupg software-properties-common
+
 #cli tools
 sudo apt install -y aria2 wget openssh-client nano unzip zip btop rclone rsync fzf tealdeer tmux 7zip nnn
 sudo DEBIAN_FRONTEND=noninteractive apt install -y iperf3
@@ -29,8 +30,14 @@ echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+wget -O- https://apt.releases.hashicorp.com/gpg | \
+gpg --dearmor | \
+sudo tee /usr/share/keyrings/hashicorp-archive-keyring.gpg > /dev/null
+echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] \
+https://apt.releases.hashicorp.com $(lsb_release -cs) main" | \
+sudo tee /etc/apt/sources.list.d/hashicorp.list
 
-sudo apt update && sudo apt install -y kubectl kubeadm helm docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo apt update && sudo apt install -y kubectl kubeadm helm docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin terraform
 
 #.debs
 wget https://github.com/derailed/k9s/releases/download/v0.32.7/k9s_linux_${ARCH}.deb && sudo apt install ./k9s_linux_${ARCH}.deb && rm k9s_linux_${ARCH}.deb
