@@ -14,7 +14,7 @@ Invoke-Expression("C:\Users\" + $env:UserName + "\scoop\apps\python\current\inst
 
 #wsl
 wsl --install -d Debian
-Copy-Item -Path ".\.wslconfig" -Destination $HOME
+Copy-Item -Path ".\configs\.wslconfig" -Destination $HOME
 #winget
 
 #games & media
