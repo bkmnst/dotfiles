@@ -17,7 +17,7 @@ sudo dnf4 group upgrade --with-optional Multimedia -y
 sudo dnf4 groupupdate sound-and-video -y
 
 #dnf apps
-sudo dnf4 install transmission go neovim python3-neovim ffmpegthumbnailer gnome-tweaks adw-gtk3-theme code nicotine+ google-chrome-stable -y
+sudo dnf4 install transmission ffmpegthumbnailer gnome-tweaks adw-gtk3-theme code google-chrome-stable totem-video-thumbnailer -y
 
 #flatpak
 flatpak remote-delete flathub
@@ -53,6 +53,7 @@ flatpak install flathub info.febvre.Komikku -y
 #flatpak install flathub io.github.seadve.Mousai -y
 flatpak install flathub org.nickvision.tagger -y
 flatpak install flathub page.codeberg.libre_menu_editor.LibreMenuEditor -y
+flatpak install flathub org.nicotine_plus.Nicotine -y
 
 #tools
 flatpak install flathub org.gimp.GIMP -y
