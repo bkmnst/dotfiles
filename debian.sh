@@ -1,3 +1,4 @@
+#!/bin/bash
 #enable systemd on wsl
 if grep -qi "WSL2" /proc/version; then
   echo -e "[boot]\nsystemd=true" | sudo tee /etc/wsl.conf > /dev/null
