@@ -31,9 +31,9 @@ sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io doc
 tldr --update
 sudo usermod -aG docker $USER
 
-#not sure about those d:
-# sudo systemctl enable docker.service
-# sudo systemctl enable containerd.service
+# Docker post-install
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
 
 sudo mkdir -p /etc/docker
 echo '{
