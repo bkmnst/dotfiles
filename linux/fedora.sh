@@ -1,71 +1,51 @@
 #!/bin/sh
-#dnf repos
-sudo dnf4 update -y
-sudo dnf4 config-manager --set-enabled google-chrome
-sudo dnf4 install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm -y
-sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-sudo dnf4 group remove libreoffice -y
-sudo dnf4 remove firefox totem libreoffice-core -y
-sudo dnf4 groupupdate core -y
+# Update packages
+sudo dnf upgrade -y
 
-#codecs (without replacing mesa)
-sudo dnf4 install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel -y
-sudo dnf4 swap ffmpeg-free ffmpeg --allowerasing -y
-sudo dnf4 install lame\* --exclude=lame-devel -y
-sudo dnf4 group upgrade --with-optional Multimedia -y
-sudo dnf4 groupupdate sound-and-video -y
+# Optimize dnf
+echo "max_parallel_downloads=10" | tee -a /etc/dnf/dnf.conf > /dev/null
+dnf -y install dnf-plugins-core
 
-#dnf apps
-sudo dnf4 install transmission ffmpegthumbnailer gnome-tweaks adw-gtk3-theme code google-chrome-stable totem-video-thumbnailer -y
+# Add RPMFusion
+sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf group update core -y
 
-#flatpak
-flatpak remote-delete flathub
-flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-flatpak remote-modify fedora --disable
-flatpak remote-modify fedora-testing --disable
+# Codecs
+sudo dnf swap ffmpeg-free ffmpeg --allowerasing -y
+sudo dnf update @multimedia --setopt="install_weak_deps=False" --exclude=PackageKit-gstreamer-plugin -y
+sudo dnf update @sound-and-video -y
+sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld -y
+sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld -y
 
-#messaging
-flatpak install flathub org.telegram.desktop -y
-flatpak install flathub dev.vencord.Vesktop -y
+# Build tools
+sudo dnf install @development-tools
 
-#games
-flatpak install flathub com.valvesoftware.Steam -y
-flatpak install flathub com.usebottles.bottles -y
-flatpak install flathub sh.ppy.osu -y
-flatpak install flathub org.prismlauncher.PrismLauncher -y
-flatpak install flathub com.heroicgameslauncher.hgl -y
+# CLI tools from dnf
+sudo dnf install aria2 wget btop rclone tealdeer tmux 7z nnn iperf3
 
-#libadwaita
-flatpak install flathub com.mattjakeman.ExtensionManager -y
-flatpak install flathub com.github.tchx84.Flatseal -y
-flatpak install flathub de.haeckerfelix.Shortwave -y
-flatpak install flathub io.github.celluloid_player.Celluloid -y
-flatpak install flathub com.rafaelmardojai.Blanket -y
-flatpak install flathub com.github.neithern.g4music -y
-#flatpak install flathub app.drey.Dialect -y
-#flatpak install flathub com.github.tenderowl.frog -y
-#flatpak install flathub org.nickvision.tubeconverter -y
-flatpak install flathub it.mijorus.gearlever -y
-flatpak install flathub com.vysp3r.ProtonPlus -y
-flatpak install flathub info.febvre.Komikku -y
-#flatpak install flathub io.gitlab.news_flash.NewsFlash -y
-#flatpak install flathub io.github.seadve.Mousai -y
-flatpak install flathub org.nickvision.tagger -y
-flatpak install flathub page.codeberg.libre_menu_editor.LibreMenuEditor -y
-flatpak install flathub org.nicotine_plus.Nicotine -y
+# Docker
+sudo dnf config-manager addrepo --from-repofile=https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-#tools
-flatpak install flathub org.gimp.GIMP -y
-flatpak install flathub com.obsproject.Studio -y
-flatpak install flathub org.blender.Blender -y
-flatpak install flathub org.inkscape.Inkscape -y
-flatpak install flathub md.obsidian.Obsidian -y
-flatpak install flathub org.darktable.Darktable -y
+# Post install
+tldr --update
+sudo usermod -aG docker $USER
 
-#gtk3 theme for flatpak
+# Docker post-install
+sudo systemctl enable docker.service
+sudo systemctl enable containerd.service
+
+sudo mkdir -p /etc/docker
+echo '{
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  }
+}' | sudo tee /etc/docker/daemon.json > /dev/null
+
+# adw-gtk3 and dark mode
+sudo dnf install adw-gtk3-theme
 flatpak install flathub org.gtk.Gtk3theme.adw-gtk3 org.gtk.Gtk3theme.adw-gtk3-dark -y
-
-
-#post-install setup
 gsettings set org.gnome.desktop.interface gtk-theme 'adw-gtk3-dark' && gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'

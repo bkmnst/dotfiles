@@ -8,10 +8,10 @@ fi
 sudo apt update && sudo apt upgrade -y
 
 # Build tools
-sudo apt install -y build-essential gettext ninja-build git apt-transport-https ca-certificates gnupg software-properties-common fuse curl
+sudo apt install -y build-essential gettext git apt-transport-https ca-certificates gnupg software-properties-common fuse curl
 
 # CLI tools
-sudo apt install -y aria2 wget openssh-client nano unzip zip btop rclone rsync fzf tealdeer tmux 7zip nnn kubectx
+sudo apt install -y aria2 wget openssh-client nano unzip zip btop rclone rsync tealdeer tmux 7zip nnn
 sudo DEBIAN_FRONTEND=noninteractive apt install -y iperf3
 # Custom repos
 sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
