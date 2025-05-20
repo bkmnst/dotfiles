@@ -6,10 +6,9 @@ fi
 
 # Update packages
 sudo apt update && sudo apt upgrade -y
-sudo apt install curl -y
 
 # Build tools
-sudo apt install -y build-essential gettext ninja-build git apt-transport-https ca-certificates gnupg software-properties-common fuse
+sudo apt install -y build-essential gettext ninja-build git apt-transport-https ca-certificates gnupg software-properties-common fuse curl
 
 # CLI tools
 sudo apt install -y aria2 wget openssh-client nano unzip zip btop rclone rsync fzf tealdeer tmux 7zip nnn kubectx
