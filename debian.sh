@@ -1,23 +1,20 @@
 #!/bin/bash
-#enable systemd on wsl
+# Enable Systemd on wsl
 if grep -qi "WSL2" /proc/version; then
   echo -e "[boot]\nsystemd=true" | sudo tee /etc/wsl.conf > /dev/null
 fi
 
-#update to latest & install curl for variables
+# Update packages
 sudo apt update && sudo apt upgrade -y
 sudo apt install curl -y
 
-ARCH=$(dpkg --print-architecture)
-LATEST_GO=$(curl -s https://go.dev/VERSION?m=text | head -n1)
-
-#build/dev tools
+# Build tools
 sudo apt install -y build-essential gettext ninja-build git apt-transport-https ca-certificates gnupg software-properties-common fuse
 
-#cli tools
+# CLI tools
 sudo apt install -y aria2 wget openssh-client nano unzip zip btop rclone rsync fzf tealdeer tmux 7zip nnn kubectx
 sudo DEBIAN_FRONTEND=noninteractive apt install -y iperf3
-#custom repos
+# Custom repos
 sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
 echo \
@@ -27,7 +24,7 @@ echo \
 
 sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
-#post install
+# Post install
 tldr --update
 sudo usermod -aG docker $USER
 
