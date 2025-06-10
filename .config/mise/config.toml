@@ -17,3 +17,8 @@ kustomize = "latest"
 uv = "latest"
 lazydocker = "latest"
 lazygit = "latest"
+
+[settings]
+
+[settings.python]
+compile = false
