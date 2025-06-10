@@ -17,6 +17,10 @@ kustomize = "latest"
 uv = "latest"
 lazydocker = "latest"
 lazygit = "latest"
+trivy = "latest"
+neovim = "latest"
+act = "latest"
+localstack = "latest"
 
 [settings]
 
