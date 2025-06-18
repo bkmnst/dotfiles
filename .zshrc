@@ -18,8 +18,8 @@ zstyle :compinstall filename '/home/bkmnst/.zshrc'
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
-source ~/powerlevel10k/powerlevel10k.zsh-theme
+source ~/.zsh/themes/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f ~/.zsh/.p10k.zsh ]] || source ~/.zsh/.p10k.zsh
 eval "$(mise activate zsh)"
