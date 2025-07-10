@@ -8,7 +8,7 @@ fi
 sudo apt update && sudo apt upgrade -y
 
 # Build tools
-sudo apt install -y build-essential gettext git apt-transport-https ca-certificates gnupg software-properties-common fuse curl
+sudo apt install -y build-essential gettext git apt-transport-https ca-certificates gnupg fuse curl
 
 # CLI tools
 sudo apt install -y aria2 wget openssh-client nano unzip zip btop rclone rsync tealdeer tmux 7zip nnn
