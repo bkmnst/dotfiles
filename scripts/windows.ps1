@@ -6,7 +6,7 @@ scoop bucket add java
 scoop bucket add extras
 scoop install aria2
 scoop config aria2-warning-enabled false
-scoop install python openjdk21 go ffmpeg mpv yt-dlp
+scoop install python go ffmpeg mpv yt-dlp streamlink
 
 #post-installation scoop
 Invoke-Expression("C:\Users\" + $env:UserName + "\scoop\apps\7zip\current\install-context.reg")
@@ -23,19 +23,17 @@ winget install EpicGames.EpicGamesLauncher
 winget install osk.tetr
 winget install PrismLauncher.PrismLauncher
 winget install goatcorp.XIVLauncher
-winget install mpv.net
 winget install qBittorrent.qBittorrent
 
 #messaging
 winget install Unigram
-winget install Vencord.Vesktop
+winget install Discord.Discord
 winget install ChatterinoTeam.Chatterino
 #tools
-winget install Google.Chrome
 winget install Microsoft.VisualStudioCode
 winget install Obsidian.Obsidian
 winget install JetBrains.Toolbox
-winget install WireGuard.WireGuard
+winget install tailscale.tailscale
 winget install dotPDNLLC.paintdotnet
 winget install OBSProject.OBSStudio
 winget install Microsoft.PowerShell
