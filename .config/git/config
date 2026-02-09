@@ -1,0 +1,41 @@
+[user]
+	name = bkmnst
+	email = bakemonsuta@gmail.com
+
+[init]
+	defaultBranch = main
+
+[color]
+	ui = auto
+
+[fetch]
+	prune = true
+
+[pull]
+	ff = only
+
+[merge]
+	conflictstyle = zdiff3
+
+[diff]
+	algorithm = histogram
+	colorMoved = zebra
+
+[rerere]
+	enabled = true
+
+[push]
+	autoSetupRemote = true
+	default = current
+
+[branch]
+	sort = -committerdate
+
+[tag]
+	sort = version:refname
+
+[status]
+	submoduleSummary = 1
+
+[submodule]
+	recurse = true
