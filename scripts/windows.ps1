@@ -99,9 +99,16 @@ foreach ($folder in $folders_to_exclude) {
         New-Item -ItemType Directory -Path $full_path -Force | Out-Null
         Write-Host "  Created: $folder" -ForegroundColor Gray
     }
+    # Hide dotfile directories (directories starting with .)
+    if ($folder -match "^\.") {
+        $item = Get-Item -Path $full_path -Force -ErrorAction SilentlyContinue
+        if ($item) {
+            $item.Attributes = "Hidden"
+        }
+    }
 }
 
-# Hide all dotfiles in home directory
+# Hide all dotfiles (files starting with .) in home directory
 Write-Host "Hiding dotfiles..." -ForegroundColor Green
 Get-ChildItem -Path $HOME -Force -Filter ".*" -File -ErrorAction SilentlyContinue | 
     ForEach-Object { 
