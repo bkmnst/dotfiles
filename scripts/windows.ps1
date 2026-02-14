@@ -1,3 +1,5 @@
+sudo config --enable normal
+
 #scoop
 Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
 Invoke-RestMethod get.scoop.sh | Invoke-Expression
@@ -14,29 +16,39 @@ Invoke-Expression("C:\Users\" + $env:UserName + "\scoop\apps\python\current\inst
 
 #wsl
 wsl --install -d Debian
-Copy-Item -Path ".\configs\.wslconfig" -Destination $HOME
+Copy-Item -Path "..\.config\.wslconfig" -Destination $HOME
 #winget
 
-#games & media
+#games
 winget install Valve.Steam
 winget install EpicGames.EpicGamesLauncher
+winget install ElectronicArts.EADesktop
 winget install osk.tetr
 winget install PrismLauncher.PrismLauncher
 winget install goatcorp.XIVLauncher
+winget install Fishstrap.Fishstrap
+winget install VirtualDesktop.Streamer
+
+#internet
+winget install Google.Chrome
 winget install qBittorrent.qBittorrent
+
+#media
+winget install Spotify.Spotify
 
 #messaging
 winget install Unigram
 winget install Discord.Discord
 winget install ChatterinoTeam.Chatterino
+
 #tools
 winget install Microsoft.VisualStudioCode
 winget install Obsidian.Obsidian
 winget install JetBrains.Toolbox
 winget install tailscale.tailscale
-winget install dotPDNLLC.paintdotnet
 winget install OBSProject.OBSStudio
 winget install Microsoft.PowerShell
+winget install raycast
 
 #exclusions
 $folders_to_exclude = (
@@ -52,6 +64,14 @@ $folders_to_exclude = (
     "scoop",
     "Code"
 )
+
+$full_paths = $folders_to_exclude | ForEach-Object {
+    $path = Join-Path $HOME $_
+    if (!(Test-Path $path)) { New-Item -ItemType Directory -Path $path | Out-Null }
+    $path
+}
+
+sudo Add-MpPreference -ExclusionPath $full_paths
 
 foreach ($folder in $folders_to_exclude) {
     $full_path = Join-Path $HOME $folder
