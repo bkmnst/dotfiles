@@ -42,7 +42,8 @@ Write-Host "Installing WSL with Debian..." -ForegroundColor Green
 wsl --install -d Debian
 
 # Copy WSL config if it exists
-$wslconfig_source = Join-Path $PSScriptRoot "../.config/.wslconfig"
+$repo_root = Split-Path $PSScriptRoot -Parent
+$wslconfig_source = Join-Path $repo_root ".config\.wslconfig"
 if (Test-Path $wslconfig_source) {
     Copy-Item -Path $wslconfig_source -Destination $HOME -Force
     Write-Host "Copied .wslconfig to home directory" -ForegroundColor Green
@@ -102,8 +103,7 @@ foreach ($folder in $folders_to_exclude) {
 
 # Hide all dotfiles in home directory
 Write-Host "Hiding dotfiles..." -ForegroundColor Green
-Get-ChildItem -Path $HOME -Force -Filter ".*" -ErrorAction SilentlyContinue | 
-    Where-Object { $_.PSIsContainer -eq $false } |
+Get-ChildItem -Path $HOME -Force -Filter ".*" -File -ErrorAction SilentlyContinue | 
     ForEach-Object { 
         $_.Attributes = "Hidden"
     }
