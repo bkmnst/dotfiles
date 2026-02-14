@@ -1,45 +1,84 @@
-#scoop
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
+# Windows Setup Script
+# This script installs essential applications and tools using Scoop and Winget
+# Run with: .\scripts\windows.ps1
+
+# Stop on errors
+$ErrorActionPreference = "Stop"
+
+# Scoop Package Manager
+Write-Host "Installing Scoop..." -ForegroundColor Green
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force
 Invoke-RestMethod get.scoop.sh | Invoke-Expression
+
+# Install Git first (required for buckets)
 scoop install git
+
+# Add Scoop buckets
 scoop bucket add java
 scoop bucket add extras
+
+# Install CLI tools via Scoop
+Write-Host "Installing CLI tools via Scoop..." -ForegroundColor Green
 scoop install aria2
 scoop config aria2-warning-enabled false
 scoop install python go ffmpeg mpv yt-dlp streamlink
 
-#post-installation scoop
-Invoke-Expression("C:\Users\" + $env:UserName + "\scoop\apps\7zip\current\install-context.reg")
-Invoke-Expression("C:\Users\" + $env:UserName + "\scoop\apps\python\current\install-pep-514.reg")
+# Post-installation: Register 7zip and Python
+Write-Host "Configuring installed applications..." -ForegroundColor Green
+$scoop_apps_path = Join-Path $HOME "scoop\apps"
 
-#wsl
+$7zip_reg = Join-Path $scoop_apps_path "7zip\current\install-context.reg"
+if (Test-Path $7zip_reg) {
+    Invoke-Expression $7zip_reg
+}
+
+$python_reg = Join-Path $scoop_apps_path "python\current\install-pep-514.reg"
+if (Test-Path $python_reg) {
+    Invoke-Expression $python_reg
+}
+
+# WSL Installation
+Write-Host "Installing WSL with Debian..." -ForegroundColor Green
 wsl --install -d Debian
-Copy-Item -Path ".\configs\.wslconfig" -Destination $HOME
-#winget
 
-#games & media
-winget install Valve.Steam
-winget install EpicGames.EpicGamesLauncher
-winget install osk.tetr
-winget install PrismLauncher.PrismLauncher
-winget install goatcorp.XIVLauncher
-winget install qBittorrent.qBittorrent
+# Copy WSL config if it exists
+$wslconfig_source = Join-Path $PSScriptRoot "..\\.config\\.wslconfig"
+if (Test-Path $wslconfig_source) {
+    Copy-Item -Path $wslconfig_source -Destination $HOME -Force
+    Write-Host "Copied .wslconfig to home directory" -ForegroundColor Green
+}
 
-#messaging
-winget install Unigram
-winget install Discord.Discord
-winget install ChatterinoTeam.Chatterino
-#tools
-winget install Microsoft.VisualStudioCode
-winget install Obsidian.Obsidian
-winget install JetBrains.Toolbox
-winget install tailscale.tailscale
-winget install dotPDNLLC.paintdotnet
-winget install OBSProject.OBSStudio
-winget install Microsoft.PowerShell
+# Winget installations
+Write-Host "Installing applications via Winget..." -ForegroundColor Green
 
-#exclusions
-$folders_to_exclude = (
+# Games & Media
+Write-Host "  Installing games and media apps..." -ForegroundColor Cyan
+winget install --id Valve.Steam --accept-package-agreements --accept-source-agreements
+winget install --id EpicGames.EpicGamesLauncher --accept-package-agreements --accept-source-agreements
+winget install --id osk.tetr --accept-package-agreements --accept-source-agreements
+winget install --id PrismLauncher.PrismLauncher --accept-package-agreements --accept-source-agreements
+winget install --id goatcorp.XIVLauncher --accept-package-agreements --accept-source-agreements
+winget install --id qBittorrent.qBittorrent --accept-package-agreements --accept-source-agreements
+
+# Messaging
+Write-Host "  Installing messaging apps..." -ForegroundColor Cyan
+winget install --id Unigram --accept-package-agreements --accept-source-agreements
+winget install --id Discord.Discord --accept-package-agreements --accept-source-agreements
+winget install --id ChatterinoTeam.Chatterino --accept-package-agreements --accept-source-agreements
+
+# Development & Productivity Tools
+Write-Host "  Installing development tools..." -ForegroundColor Cyan
+winget install --id Microsoft.VisualStudioCode --accept-package-agreements --accept-source-agreements
+winget install --id Obsidian.Obsidian --accept-package-agreements --accept-source-agreements
+winget install --id JetBrains.Toolbox --accept-package-agreements --accept-source-agreements
+winget install --id tailscale.tailscale --accept-package-agreements --accept-source-agreements
+winget install --id dotPDNLLC.paintdotnet --accept-package-agreements --accept-source-agreements
+winget install --id OBSProject.OBSStudio --accept-package-agreements --accept-source-agreements
+winget install --id Microsoft.PowerShell --accept-package-agreements --accept-source-agreements
+
+# Create and hide dotfile directories
+Write-Host "Creating dotfile directories..." -ForegroundColor Green
+$folders_to_exclude = @(
     ".android",
     ".cache",
     ".config",
@@ -56,8 +95,19 @@ $folders_to_exclude = (
 foreach ($folder in $folders_to_exclude) {
     $full_path = Join-Path $HOME $folder
     if (!(Test-Path $full_path)) {
-        New-Item -ItemType Directory -Path $full_path
+        New-Item -ItemType Directory -Path $full_path -Force | Out-Null
+        Write-Host "  Created: $folder" -ForegroundColor Gray
     }
 }
 
-Get-ChildItem -Force -Filter ".*" | ForEach-Object { $_.Attributes = "Hidden" } 
+# Hide all dotfiles in home directory
+Write-Host "Hiding dotfiles..." -ForegroundColor Green
+Get-ChildItem -Path $HOME -Force -Filter ".*" -ErrorAction SilentlyContinue | 
+    Where-Object { $_.PSIsContainer -eq $false } |
+    ForEach-Object { 
+        $_.Attributes = "Hidden"
+    }
+
+Write-Host "`nSetup complete!" -ForegroundColor Green
+Write-Host "Please restart your terminal for all changes to take effect." -ForegroundColor Yellow
+
