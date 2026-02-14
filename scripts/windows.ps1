@@ -29,12 +29,12 @@ $scoop_apps_path = Join-Path $HOME "scoop\apps"
 
 $7zip_reg = Join-Path $scoop_apps_path "7zip\current\install-context.reg"
 if (Test-Path $7zip_reg) {
-    Invoke-Expression $7zip_reg
+    Start-Process -FilePath "reg.exe" -ArgumentList "import", $7zip_reg -Wait -NoNewWindow
 }
 
 $python_reg = Join-Path $scoop_apps_path "python\current\install-pep-514.reg"
 if (Test-Path $python_reg) {
-    Invoke-Expression $python_reg
+    Start-Process -FilePath "reg.exe" -ArgumentList "import", $python_reg -Wait -NoNewWindow
 }
 
 # WSL Installation
@@ -42,7 +42,7 @@ Write-Host "Installing WSL with Debian..." -ForegroundColor Green
 wsl --install -d Debian
 
 # Copy WSL config if it exists
-$wslconfig_source = Join-Path $PSScriptRoot "..\\.config\\.wslconfig"
+$wslconfig_source = Join-Path $PSScriptRoot "../.config/.wslconfig"
 if (Test-Path $wslconfig_source) {
     Copy-Item -Path $wslconfig_source -Destination $HOME -Force
     Write-Host "Copied .wslconfig to home directory" -ForegroundColor Green

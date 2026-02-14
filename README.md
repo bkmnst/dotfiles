@@ -86,7 +86,7 @@ The Debian script automatically enables systemd when running under WSL2.
 
 ## System Requirements
 
-- **Linux**: Debian 11+, Ubuntu 20.04+, or Fedora 38+
+- **Linux**: Debian 11+, Ubuntu 20.04+, or Fedora 39+
 - **macOS**: macOS 12+ with Homebrew
 - **Windows**: Windows 10/11 with WSL2, Scoop, and Winget
 
