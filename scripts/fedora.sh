@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+set -euo pipefail
+
 # Update packages
 sudo dnf upgrade -y
 
@@ -7,8 +9,8 @@ echo "max_parallel_downloads=10" | tee -a /etc/dnf/dnf.conf > /dev/null
 dnf -y install dnf-plugins-core
 
 # Add RPMFusion
-sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
-sudo dnf install -y https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install -y "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"
+sudo dnf install -y "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 sudo dnf group update core -y
 
 # Codecs
@@ -30,7 +32,7 @@ sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin dock
 
 # Post install
 tldr --update
-sudo usermod -aG docker $USER
+sudo usermod -aG docker "$USER"
 
 # Docker post-install
 sudo systemctl enable docker.service

@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Export certificates from MacOS keychain
 security find-certificate -a -p /System/Library/Keychains/SystemRootCertificates.keychain > ~/root_certs.pem

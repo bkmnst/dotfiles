@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+
 # Remove fedora flatpak repo
 flatpak remote-delete fedora --force || true
 flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo

@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+
 # Enable Systemd on wsl
 if grep -qi "WSL2" /proc/version; then
   echo -e "[boot]\nsystemd=true" | sudo tee /etc/wsl.conf > /dev/null
@@ -25,7 +27,7 @@ sudo apt update && sudo apt install -y docker-ce docker-ce-cli containerd.io doc
 
 # Post install
 tldr --update
-sudo usermod -aG docker $USER
+sudo usermod -aG docker "$USER"
 
 # Docker post-install
 sudo systemctl enable docker.service
