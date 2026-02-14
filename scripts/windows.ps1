@@ -41,7 +41,7 @@ if (Test-Path $python_reg) {
 Write-Host "Installing WSL with Debian..." -ForegroundColor Green
 wsl --install -d Debian
 
-# Copy WSL config if it exists
+# Copy WSL config if it exists (located in .config directory of the repository)
 $repo_root = Split-Path $PSScriptRoot -Parent
 $wslconfig_source = Join-Path $repo_root ".config\.wslconfig"
 if (Test-Path $wslconfig_source) {
@@ -99,14 +99,14 @@ foreach ($folder in $folders_to_exclude) {
         New-Item -ItemType Directory -Path $full_path -Force | Out-Null
         Write-Host "  Created: $folder" -ForegroundColor Gray
     }
-    # Hide dotfile directories (directories starting with .)
-    if ($folder -match "^\.") {
-        $item = Get-Item -Path $full_path -Force -ErrorAction SilentlyContinue
-        if ($item) {
-            $item.Attributes = "Hidden"
-        }
-    }
 }
+
+# Hide dotfile directories (directories starting with .)
+Write-Host "Hiding dotfile directories..." -ForegroundColor Green
+Get-ChildItem -Path $HOME -Force -Filter ".*" -Directory -ErrorAction SilentlyContinue | 
+    ForEach-Object { 
+        $_.Attributes = "Hidden"
+    }
 
 # Hide all dotfiles (files starting with .) in home directory
 Write-Host "Hiding dotfiles..." -ForegroundColor Green
